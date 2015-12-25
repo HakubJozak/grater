@@ -13,5 +13,7 @@ require "grater"
 # require "pry"
 # Pry.start
 
-w = Grater::Window.find('emacs')
+w = Grater::Window.active
+w = w.shade
 puts w.inspect
+
