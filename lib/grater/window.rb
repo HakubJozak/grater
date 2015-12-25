@@ -1,5 +1,6 @@
 class Grater::Window
-
+  include Grater::Runner
+  
   attr_accessor :id, :title, :name
 
   def initialize(line)
@@ -60,16 +61,10 @@ class Grater::Window
     wmctrl "-c #{@id}"
   end
 
-  private
-
-  def wmctrl(switches)
-    run "wmctrl -i #{switches}"
-    self
-  end
-
-  def run(cmd)
-    puts cmd
-    `#{cmd}`.strip
+  def move(dx=0,dy=0,dw=-1,dh=-1)
+    unshade
+    unmaximize
+    wmctrl "-r #{@id} -e 0,#{dx},#{dy},#{dw},#{dh}"
   end
 
 end
