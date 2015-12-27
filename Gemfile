@@ -5,6 +5,6 @@ gemspec
 
 group :test do
   gem 'test-unit-notify'
-  gem 'pry-nav'
+  gem 'pry'
+  gem 'byebug'
 end
-

@@ -1,7 +1,6 @@
 # Grater
 
-(Inspired by `wcmtile` by @mreq.)
-
+(Inspired by https://github.com/mreq/wmctile by (Petr Marek)[https://github.com/mreq].)
 Cutting windows into tiles, bringing them up, sending them down,
 activating by name, moving to a specified desktop and so on. Grater is
 thin layer on top of `wmctrl` that tries to make the window manager
