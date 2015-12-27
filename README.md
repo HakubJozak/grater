@@ -1,6 +1,12 @@
 # Grater
 
-Inspired by `wcmtile` by @mreq.
+(Inspired by `wcmtile` by @mreq.)
+
+Cutting windows into tiles, bringing them up, sending them down,
+activating by name, moving to a specified desktop and so on. Grater is
+thin layer on top of `wmctrl` that tries to make the window manager
+scripting a pleasure.
+
 
 ## Installation
 
@@ -30,8 +36,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/grater. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/grater.
 
 ## License
 
