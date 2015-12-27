@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-Bundler.require(:default)
+# require "bundler/setup"
+# Bundler.require(:default)
 require 'pry'
-require "grater"
+require 'dmenu'
+require_relative "../lib/grater"
 
 
 # You can add fixtures and/or initialization code here to make experimenting
@@ -13,7 +14,6 @@ require "grater"
 # require "pry"
 # Pry.start
 
-w = Grater::Window.active
-w = w.shade
+w = Grater::Window.find('google-chrome')
+w = w.activate
 puts w.inspect
-

@@ -1,12 +1,12 @@
-require "grater/version"
-require "grater/runner"
-require "grater/dmenu"
-require "grater/window"
+require_relative "grater/version"
+require_relative "grater/runner"
+require_relative "grater/dmenu"
+require_relative "grater/window"
 
 
 
 module Grater
-  include Grater::Runner  
+  include Grater::Runner
 
   def self.settings
     {
@@ -22,12 +22,12 @@ module Grater
     def initialize
       # => 1920x1080
       r = run("wmctrl -d | awk '{ print $9 }' | head -n1")
-      w,h = r.split('x').map(&:to_i)
-
-      @w = w - 2 * Grater.settings[:window_border]
-      @h = h - 2 * Grater.settings[:window_border]
-      @id = cmd("wmctrl -d | grep '\*' | awk '{ print $1 }'").to_i      
+      border = Grater.settings[:window_border]
+      @w,@h = r.split('x').map { |s|  s - 2 * border }
+      @number = cmd("wmctrl -d | grep '\*' | awk '{ print $1 }'").to_i
     end
+
+
   end
 
 

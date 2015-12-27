@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/grater/runner"
+
+include Grater::Runner
+#xfconf-query  --channel xfce4-keyboard-shortcuts -n --property '/commands/custom/<Alt>L' --type string --set 'xclock'
+
+def xfconf_query(args)
+  run "xfconf-query --channel xfce4-keyboard-shortcuts #{args}"
+end
+
+
+def set_shortcut(key,cmd)
+  xfconf_query "--reset --property '/commands/custom/#{key}'"      
+  xfconf_query "--create --property '/commands/custom/#{key}' --type string --set '#{cmd}'"
+end
+
+ruby = ''
+
+set_shortcut '<Super>B', "/home/jakub/code/my/grater/bin/grater-launcher.sh"
+# set_shortcut '<Super>F1', 'xclock'
+
+
+
