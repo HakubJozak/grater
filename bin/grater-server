@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+
+# require "bundler/setup"
+# Bundler.require(:default)
+require 'dmenu'
+require 'slop'
+
+require_relative "../lib/grater"
+
+
+options = Slop.parse do |o|
+  o.bool "-v", "--verbose", "enable verbose mode", default: false
+  o.string "-p", "--pipe", "pipe for commands"
+end
+
+
+def chrome_app(app_id)
+  pattern = /#{app_id}.google-chrome/
+  cmd = "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=#{app_id}"
+  Grater::Window.summon_or_run(pattern,cmd)
+end
+
+def process(command)
+  # TODO: DSL this
+  case command
+  when 'emacs'
+    Grater::Window.summon_or_run(/emacs.Emacs/,'emacs &')
+
+  when 'browse'
+    w = Grater::Window.summon_or_run(/google-chrome.google-chrome/,'google-chrome')
+
+  when 'slack'
+    w = Grater::Window.summon_or_run(/slack.Slack/,'slack &')
+
+  when 'terminal'
+    w = Grater::Window.summon_or_run(/gnome-terminal-server.Gnome-terminal/,'gnome-terminal')    
+
+  when 'files'
+    Grater::Window.summon_or_run(/desktop_window.Nautilus/,'nautilus')
+
+  when 'nyx'
+    chrome_app('epjahignhcbaegaljboenneempmgadoo')
+
+  when 'gmail'
+    chrome_app('pjkljhegncpnkpknbcohdijeoejaedia')
+
+  when 'youtube'
+    chrome_app('blpcfgokakmgnkcojhhkbfbldkacnbeo')
+  else
+    puts "Unknown command #{command}"
+  end
+end
+
+
+
+puts "Ready to grate some cheese!"
+
+
+def command_loop(options)
+  open(options[:pipe], "r+") do |input|
+    while line = input.gets.strip
+      case line.upcase
+      when 'QUIT'
+        break
+      # when 'RESTART'
+      #   exec "bundle exec ruby #{$0} -p #{options[:pipe]}
+      else
+        puts "Command received: '#{line}'"
+        process(line)
+      end
+    end
+  end
+ensure
+  file = options[:pipe]
+  puts "Deleting #{file}"
+  File.delete(file)
+  exit  
+end
+
+
+command_loop(options)
+
+
+
