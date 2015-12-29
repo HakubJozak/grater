@@ -1,18 +1,24 @@
 class Grater::Window
   include Grater::Runner
-  
+
   attr_accessor :id, :title, :name
 
   def initialize(line)
     @id, @desktop, @group, @box, @title = line.split
   end
 
-  def self.find(str)
-    r = `wmctrl -lx | grep #{str}`
+  def self.find(pattern)
+    r = `wmctrl -lx`.lines.find { |l| l =~ pattern }
+    new(r.strip) if r
 
-    unless r.strip.empty?
-      new(r.strip)
-    end
+  end
+
+  def self.summon_or_run(name,cmd)
+    if w = Grater::Window.find(name)
+      w.summon
+    else
+      system(cmd)
+    end    
   end
 
   def self.active
@@ -20,7 +26,7 @@ class Grater::Window
     id = out.split('Using window: ').last
     new(id)
   end
-  
+
   def to_dmenu
     Dmenu::Item.new(@title)
   end

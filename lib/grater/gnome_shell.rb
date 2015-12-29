@@ -1,17 +1,17 @@
-require_relative 'runner'
+require_relative 'dconf'
 
 module Grater
   class GnomeShell
-    include ::Grater::Runner
+    include ::Grater::Dconf
 
     BASE = "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
 
     def delete_all_shortcuts
       fetch_shortcuts.each do |key|
-        reset_dir(key)
+        reset_dconf_dir(key)
       end
 
-      write_array BASE, []
+      write_dconf_array BASE, []
     end
 
     def add_shortcut(key,cmd)
@@ -20,43 +20,19 @@ module Grater
       root = "#{BASE}/custom#{i}/"
       list += [ root ]
 
-      write_array BASE, list
-      write_string "#{root}name", "Grate Shortcut #{i}"
-      write_string "#{root}binding", key
-      write_string "#{root}command", cmd
+      write_dconf_array BASE, list
+      write_dconf_string "#{root}name", "Grate Shortcut #{i}"
+      write_dconf_string "#{root}binding", key
+      write_dconf_string "#{root}command", cmd
+
+      puts "'#{cmd}' bound to '#{key}'"
     end
 
     private
 
     def fetch_shortcuts
-      read(BASE)      
+      read_dconf(BASE)      
     end
 
-    def reset_dir(key)
-      run("dconf reset -f #{key}")      
-    end
-
-    def write_array(property,value)
-      if value.empty?
-        run("dconf write #{property} '@as []'")
-      else
-        serialized = value.map { |key| "'#{key}'" }.join(',')
-        run("dconf write #{property} \"[#{serialized}]\"")
-      end
-    end
-
-    def write_string(property,value)
-      run("dconf write #{property} \"'#{value}'\"")
-    end
-
-    def read(property)
-      result = run("dconf read #{property}")
-      # quick and dirty ... but it works :]
-      if result == '@as []'
-        []
-      else
-        eval result
-      end
-    end
   end
 end

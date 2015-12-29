@@ -8,6 +8,7 @@ require_relative "grater/window"
 module Grater
   include Grater::Runner
 
+  # TODO: take it from a config file
   def self.settings
     {
       window_border: 1,

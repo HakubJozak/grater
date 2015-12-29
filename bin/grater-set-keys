@@ -2,9 +2,29 @@
 
 require_relative "../lib/grater/gnome_shell"
 require 'pry'
+require 'optparse'
+
+
+
+
+OptionParser.new do |opts|
+  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+    # HACK - do it better
+    $verbose = true
+  end
+end.parse!
+
+
+
+def launch(cmd)
+  "/home/jakub/code/my/grater/bin/grater-launcher.sh #{cmd}"
+end
+
+
 
 g = Grater::GnomeShell.new
 g.delete_all_shortcuts
-
-g.add_shortcut('F5','xcalc')
-g.add_shortcut('F6','xclock')
+g.add_shortcut('<Super>e',launch('edit'))
+g.add_shortcut('<Super>b',launch('browse'))
+g.add_shortcut('<Super>c',launch('chat'))
+g.add_shortcut('<Super>t',launch('terminal'))

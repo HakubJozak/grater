@@ -2,18 +2,44 @@
 
 # require "bundler/setup"
 # Bundler.require(:default)
-require 'pry'
 require 'dmenu'
+require 'slop'
+
 require_relative "../lib/grater"
 
 
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
+options = Slop.parse do |o|
+  o.bool "-v", "--verbose", "enable verbose mode", default: false
+end
 
-# (If you use this, don't forget to add pry to your Gemfile!)
-# require "pry"
-# Pry.start
 
-w = Grater::Window.find('google-chrome')
-w = w.activate
-puts w.inspect
+command = options.arguments.first
+
+if command
+  # TODO: DSL this
+  case command
+  when 'edit'
+    Grater::Window.summon_or_run(/emacs.Emacs/,'emacs &')
+
+  when 'browse'
+    w = Grater::Window.summon_or_run(/google-chrome.google-chrome/,'slack &')
+
+  when 'chat'
+    w = Grater::Window.summon_or_run(/slack.Slack/,'slack &')
+
+  when 'terminal'
+    w = Grater::Window.summon_or_run(/gnome-terminal-server.Gnome-terminal/,'gnome-terminal')    
+
+  when 'home'
+    Grater::Window.summon_or_run(/desktop_window.Nautilus/,'nautilus')
+  else
+    puts "Unknown command #{command}"
+  end
+else
+  puts 'Command missing.'
+end
+
+
+
+
+

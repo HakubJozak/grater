@@ -9,7 +9,7 @@ module Grater
     end
 
     def run(cmd)
-      puts ">> #{cmd}"
+      puts ">> #{cmd}" if $verbose
       `#{cmd}`.strip
     end
 
