@@ -24,7 +24,8 @@ end
 
 g = Grater::GnomeShell.new
 g.delete_all_shortcuts
-g.add_shortcut('<Super>e',launch('edit'))
-g.add_shortcut('<Super>b',launch('browse'))
-g.add_shortcut('<Super>c',launch('chat'))
-g.add_shortcut('<Super>t',launch('terminal'))
+# g.add_shortcut('<Super>e',launch('edit'))
+# g.add_shortcut('<Super>b',launch('browse'))
+# g.add_shortcut('<Super>c',launch('chat'))
+# g.add_shortcut('<Super>t',launch('terminal'))
+# g.add_shortcut('<Super>f',launch('files'))

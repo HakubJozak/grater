@@ -2,7 +2,7 @@
 
 # Remember to run this script using the command "source ./filename.sh"
 
-# Search these processes for the session variable 
+# Search these processes for the session variable
 # (they are run as the current user and have the DBUS session variable set)
 compatiblePrograms=( nautilus kdeinit kded4 pulseaudio trackerd )
 
@@ -13,6 +13,7 @@ for index in ${compatiblePrograms[@]}; do
         break
     fi
 done
+
 if [[ "${PID}" == "" ]]; then
     echo "Could not detect active login session"
     return 1
