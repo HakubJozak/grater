@@ -23,9 +23,6 @@ def process(command)
     chrome_app('pjkljhegncpnkpknbcohdijeoejaedia')
 
   when 'youtube'
-    puts 'you'
-
-  when 'youtube'
     chrome_app('blpcfgokakmgnkcojhhkbfbldkacnbeo')
   else
     puts "Unknown command #{command}"

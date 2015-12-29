@@ -6,6 +6,6 @@ gemspec
 
 
 group :test do
-  gem 'test-unit-notify'
+  #  gem 'test-unit-notify'
   gem 'byebug'
 end

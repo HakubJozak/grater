@@ -12,7 +12,7 @@ if ! [ -p "$PIPE" ]; then
   # &> "$LOG" &
   bundle exec ruby "$SERVER" -p "$PIPE" $* 
 else
-  echo "Sending command $*"
+  echo "Sending command '$*'"
   echo "$*" > $PIPE
 fi
 
