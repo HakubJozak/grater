@@ -12,6 +12,15 @@ module Grater
       Grater::DSL::Handler.new.instance_eval(&@handler)
     end
 
+    def to_sxhkd
+<<-EOF
+# #{@name}
+#{@keys}
+  /home/jakub/code/my/grater/bin/grater #{@name}
+EOF
+    end
+
+    # not used
     def to_xbindkeysrc
 <<-EOF
 \"/home/jakub/code/my/grater/bin/grater #{@name}\"

@@ -7,17 +7,31 @@ module Grater
         f = File.new(filename).read
         dsl = Grater::DSL::Root.new
         dsl.instance_eval(f)
-        puts dsl.commands.inspect
         dsl.commands
       end
 
       def initialize
         @commands = {}
+        @prefix = nil
+      end
+
+      # TODO: neste prefixes
+      def prefix(key,&block)
+        old = @prefix
+        @prefix = key
+        instance_eval(&block)
+        @prefix = old
       end
 
       def method_missing(name, *args, &block)
+        hotkey = if @prefix
+                   "#{@prefix} ; #{args.first}"
+                 else
+                   args.first
+                 end
+          
         @commands[name.to_s] =
-          Grater::Command.new(name,args.first,&block)
+          Grater::Command.new(name,hotkey,&block)
       end
     end
 

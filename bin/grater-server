@@ -12,6 +12,8 @@ options = Slop.parse do |o|
   o.bool "-v", "--verbose", "enable verbose mode", default: false
   o.string "-p", "--pipe", "pipe for commands", default: '/tmp/grater'
   o.string "-f", "--file", "configuration file", default: 'config.rb'
+  o.string "-k", "--keys", "hotkeys config file", default: '/home/jakub/.config/sxhkd/sxhkdrc'
+
 end
 
 

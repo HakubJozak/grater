@@ -1,31 +1,32 @@
-emacs('Alt + 1') {
-  summon /xcalc/, 'xcasdfl'
-}
+prefix('ctrl + j') {
+  emacs('ctrl + j') {
+    summon /emacs.Emacs24/, 'emacs &'
+  }
 
+  browse('w') {
+    summon /google-chrome.google-chrome/,'google-chrome'
+  }
 
-browse('Alt + 2') {
-  summon /google-chrome.google-chrome/,'google-chrome'
-}
+  terminal('d') {
+    summon /gnome-terminal-server.Gnome-terminal/,'gnome-terminal'
+  }
 
-terminal('Alt + 3') {
-  summon /gnome-terminal-server.Gnome-terminal/,'gnome-terminal'
-}
+  slack('s') {
+    summon /slack.Slack/,'slack &'
+  }
 
-slack('Alt + 4') {
-  summon /slack.Slack/,'slack &'
-}
+  # Nyx
+  nyx('n') {
+    summon_web_app('epjahignhcbaegaljboenneempmgadoo')
+  }
 
-# Nyx
-nyx('Alt + 5') {
-  summon_web_app('epjahignhcbaegaljboenneempmgadoo')
-}
+  # Gmail
+  gmail('m') {
+    summon_web_app('pjkljhegncpnkpknbcohdijeoejaedia')
+  }
 
-# Gmail
-gmail('Alt + 6') {
-  summon_web_app('pjkljhegncpnkpknbcohdijeoejaedia')
-}
-
-# YouTube
-youtube('Alt + 7') {
-  summon_web_app('blpcfgokakmgnkcojhhkbfbldkacnbeo')
+  # YouTube
+  youtube('y') {
+    summon_web_app('blpcfgokakmgnkcojhhkbfbldkacnbeo')
+  }
 }
