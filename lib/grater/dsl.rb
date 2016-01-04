@@ -13,6 +13,7 @@ module Grater
       def initialize
         @commands = {}
         @prefix = nil
+        @count = 0
       end
 
       # TODO: neste prefixes
@@ -23,27 +24,63 @@ module Grater
         @prefix = old
       end
 
+      private
+
       def method_missing(name, *args, &block)
         hotkey = if @prefix
-                   "#{@prefix} ; #{args.first}"
+                   "#{@prefix} ; #{args.shift}"
                  else
-                   args.first
+                   args.shift
                  end
-          
-        @commands[name.to_s] =
-          Grater::Command.new(name,hotkey,&block)
+        
+        add_command(name, hotkey, args, block)
       end
+
+      def add_command(name, hotkey, args, block)
+        if name == :bind
+          @count += 1
+          # HACK
+          @commands["bind#{@count}"] =
+            Grater::NativeCommand.new(args.first,hotkey)
+        else
+          @commands[name.to_s] =
+            Grater::Command.new(name,hotkey,&block)                
+        end
+
+      end
+
     end
 
     class Handler
-      def summon(pattern,exec)
-        Grater::Window.summon_or_run(pattern,exec)
+      def activate(*args)
+        if args.length == 2
+          pattern, exec = args
+        else
+          opts = args.first
+          pattern, exec = web_app_props(opts[:web_app])
+        end
+
+        do_or_run :activate, pattern, exec
       end
 
-      def summon_web_app(app_id)
+      def summon(pattern,exec)
+        do_or_run(:summon,pattern,exec)
+      end
+
+      private
+
+      def do_or_run(action,pattern,exec)
+        if w = Grater::Window.find(pattern)
+          w.send(action)
+        else
+          system(exec)
+        end    
+      end
+      
+      def web_app_props(app_id)
         pattern = /#{app_id}.google-chrome/
-        cmd = "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=#{app_id}"
-        Grater::Window.summon_or_run(pattern,cmd)
+        exec = "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=#{app_id}"
+        [ pattern, exec] 
       end
     end
   end

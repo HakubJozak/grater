@@ -13,14 +13,6 @@ class Grater::Window
 
   end
 
-  def self.summon_or_run(name,cmd)
-    if w = Grater::Window.find(name)
-      w.summon
-    else
-      system(cmd)
-    end    
-  end
-
   def self.active
     out = `wmctrl -a :ACTIVE: -v 2>&1`
     id = out.split('Using window: ').last

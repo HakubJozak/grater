@@ -1,32 +1,44 @@
 prefix('ctrl + j') {
+
+  # TODO:
+  # Google ranslate
+  # bind 'ctrl + n ; t', 'xdotool <>'
+  #
+  # mark window - activate marked window
+
+
+  # send escape
+  bind 'ctrl + h','xdotool getactivewindow key Escape'
+
   emacs('ctrl + j') {
-    summon /emacs.Emacs24/, 'emacs &'
+    activate /emacs.Emacs24/, 'emacs &'
   }
 
-  browse('i') {
-    summon /google-chrome.google-chrome/,'google-chrome'
+
+  browse('ctrl + i') {
+    activate /google-chrome.google-chrome/,'google-chrome'
   }
 
-  terminal('k') {
-    summon /gnome-terminal-server.Gnome-terminal/,'gnome-terminal'
+  terminal('ctrl + k') {
+    activate /gnome-terminal-server.Gnome-terminal/,'gnome-terminal'
   }
 
   slack('s') {
-    summon /slack.Slack/,'slack &'
+    activate /slack.Slack/,'slack &'
   }
 
   # Nyx
   nyx('n') {
-    summon_web_app('epjahignhcbaegaljboenneempmgadoo')
+    activate(web_app: 'epjahignhcbaegaljboenneempmgadoo')
   }
 
   # Gmail
   gmail('m') {
-    summon_web_app('pjkljhegncpnkpknbcohdijeoejaedia')
+    activate(web_app: 'pjkljhegncpnkpknbcohdijeoejaedia')
   }
 
   # YouTube
   youtube('y') {
-    summon_web_app('blpcfgokakmgnkcojhhkbfbldkacnbeo')
+    activate(web_app: 'blpcfgokakmgnkcojhhkbfbldkacnbeo')
   }
 }
