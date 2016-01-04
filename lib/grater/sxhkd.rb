@@ -3,7 +3,12 @@ module Grater
 
     def write_hotkeys(commands)
       # change config file
-      File.open(@keys_file,"w+") do |f|
+
+      # TODO get from @keys_file
+      # require 'fileutils'
+      # FileUtils.mkpath('/home/jakub/.config/sxhkd')
+
+      File.open(@keys_file,"w") do |f|
         commands.each_pair do |_,cmd|
           f.write "#{cmd.to_sxhkd}\n"
         end

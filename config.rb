@@ -3,11 +3,11 @@ prefix('ctrl + j') {
     summon /emacs.Emacs24/, 'emacs &'
   }
 
-  browse('w') {
+  browse('i') {
     summon /google-chrome.google-chrome/,'google-chrome'
   }
 
-  terminal('d') {
+  terminal('k') {
     summon /gnome-terminal-server.Gnome-terminal/,'gnome-terminal'
   }
 

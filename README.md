@@ -6,6 +6,10 @@ activating by name, moving to a specified desktop and so on. Grater is
 thin layer on top of `wmctrl` that tries to make the window manager
 scripting a pleasure.
 
+## TODO
+- check wmctrl existence on boot
+- runnable from __ANY__ path
+
 
 ## Installation
 

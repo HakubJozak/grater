@@ -4,6 +4,7 @@ require_relative "grater/dmenu"
 require_relative "grater/window"
 require_relative "grater/command"
 require_relative "grater/dsl"
+require_relative "grater/sxhkd"
 require_relative "grater/server"
 
 
