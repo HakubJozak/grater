@@ -2,17 +2,19 @@ require 'listen'
 
 module Grater
   class Server
+    include Grater::Sxhkd
+
     def initialize(options)
       @pipe = options[:pipe]
       @file = options[:file]
-      @keys_file = options[:keys]      
+      @keys_file = options[:keys]
       reload
       watch_for_changes
     end
 
     def run
       puts "Ready to grate some cheese!"
-      
+
       open(@pipe, "r+") do |input|
         while line = input.gets.strip
           puts "Received: '#{line}'"
@@ -58,26 +60,7 @@ module Grater
     def reload
       puts 'Reading config...'
       @commands = Grater::DSL::Root.read(@file)
-      write_hotkeys
-    end
-
-    # TODO: separate from the Server class
-    def write_hotkeys
-      # change config file
-      File.open(@keys_file,"w") do |f|
-        @commands.each_pair do |_,cmd|
-          f.write "#{cmd.to_sxhkd}\n"
-        end
-      end
-
-      # trigger reload
-      pid = `pgrep sxhkd`
-      unless pid.empty?
-        system "kill -s USR1 #{pid}"
-      else
-        puts "Looks like sxhkd is not running."
-      end
-      
+      write_hotkeys(@commands)
     end
   end
 end
