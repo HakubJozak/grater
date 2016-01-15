@@ -16,9 +16,5 @@ options = Slop.parse do |o|
 
 end
 
-
+Process.setproctitle 'grater'
 server = Grater::Server.new(options).run
-
-
-
-

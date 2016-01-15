@@ -11,16 +11,16 @@ prefix('ctrl + j') {
   bind 'ctrl + h','xdotool getactivewindow key Escape'
 
   emacs('ctrl + j') {
-    activate /emacs.Emacs24/, 'emacs &'
+    activate /emacs.*.Emacs24/, 'emacs &'
   }
 
 
   browse('ctrl + i') {
-    activate /google-chrome.google-chrome/,'google-chrome'
+    activate /google-chrome.google-chrome/,'google-chrome &'
   }
 
   terminal('ctrl + k') {
-    activate /gnome-terminal-server.Gnome-terminal/,'gnome-terminal'
+    activate /gnome-terminal-server.Gnome-terminal/,'gnome-terminal &'
   }
 
   slack('s') {
