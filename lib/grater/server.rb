@@ -8,6 +8,7 @@ module Grater
       @pipe = options[:pipe]
       @file = options[:file]
       @keys_file = options[:keys]
+      @verbose = options[:verbose]
       reload
       watch_for_changes
     end
