@@ -1,26 +1,29 @@
 class Grater::Window
   include Grater::Runner
 
-  attr_accessor :id, :title, :name
+  attr_accessor :id, :title, :name, :group
 
   def initialize(line)
-    @id, @desktop, @group, @box, @title = line.split
+    @id, @desktop, @group, @box, @title = line.split(/\s+/,5)
   end
 
   def self.find(pattern)
     r = `wmctrl -lx`.lines.find { |l| l =~ pattern }
     new(r.strip) if r
-
   end
 
   def self.active
     out = `wmctrl -a :ACTIVE: -v 2>&1`
     id = out.split('Using window: ').last
-    new(id)
+    new(`wmctrl -lx | grep #{id}`.strip)
   end
 
   def to_dmenu
     Dmenu::Item.new(@title)
+  end
+
+  def send_key(key)
+    run "xdotool key --window #{@id} #{key}"
   end
 
   def activate

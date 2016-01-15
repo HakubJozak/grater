@@ -31,9 +31,5 @@ module Grater
       @w,@h = r.split('x').map { |s|  s - 2 * border }
       @number = cmd("wmctrl -d | grep '\*' | awk '{ print $1 }'").to_i
     end
-
-
   end
-
-
 end

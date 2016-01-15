@@ -1,6 +1,22 @@
 module Grater
   module Sxhkd
 
+    def stop_key_listener
+      system "kill -9 #{pid}"
+    end
+
+    def start_key_listener
+      system "sxhkd &"
+    end
+
+    def reload_key_listener
+      system "kill -s USR1 #{pid}"      
+    end
+
+    def pid
+      `pgrep sxhkd`
+    end
+    
     def write_hotkeys(commands)
       # change config file
 
@@ -14,13 +30,11 @@ module Grater
         end
       end
 
-      # trigger reload
-      pid = `pgrep sxhkd`
       unless pid.empty?
-        system "kill -s USR1 #{pid}"
+        reload_key_listener
       else
         puts "Looks like sxhkd is not running. Launching..."
-        system "sxhkd &"
+        start_key_listener
       end
 
     end

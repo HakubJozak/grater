@@ -2,7 +2,7 @@ module Grater
   module DSL
     class Root
       attr_reader :commands
-      
+
       def self.read(filename)
         f = File.new(filename).read
         dsl = Grater::DSL::Root.new
@@ -12,27 +12,13 @@ module Grater
 
       def initialize
         @commands = {}
-        @prefix = nil
         @count = 0
-      end
-
-      # TODO: neste prefixes
-      def prefix(key,&block)
-        old = @prefix
-        @prefix = key
-        instance_eval(&block)
-        @prefix = old
       end
 
       private
 
       def method_missing(name, *args, &block)
-        hotkey = if @prefix
-                   "#{@prefix} ; #{args.shift}"
-                 else
-                   args.shift
-                 end
-        
+        hotkey = args.shift
         add_command(name, hotkey, args, block)
       end
 
@@ -44,7 +30,7 @@ module Grater
             Grater::NativeCommand.new(args.first,hotkey)
         else
           @commands[name.to_s] =
-            Grater::Command.new(name,hotkey,&block)                
+            Grater::Command.new(name,hotkey,&block)
         end
 
       end
@@ -74,13 +60,13 @@ module Grater
           w.send(action)
         else
           system(exec)
-        end    
+        end
       end
-      
+
       def web_app_props(app_id)
         pattern = /#{app_id}.google-chrome/
         exec = "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=#{app_id}"
-        [ pattern, exec] 
+        [ pattern, exec]
       end
     end
   end
