@@ -53,8 +53,6 @@ module Grater
     def watch_for_changes
       dir = File.dirname(@file)
       base = File.basename(@file)
-      puts dir
-      puts base      
 
       @listener = Listen.to(dir,only: /^#{base}$/) do |modified, _,_|
         if File.basename(modified.first) == base
