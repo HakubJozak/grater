@@ -1,5 +1,7 @@
 require 'listen'
 
+
+
 module Grater
   class Server
     include Grater::Sxhkd
@@ -49,8 +51,13 @@ module Grater
     private
 
     def watch_for_changes
-      @listener = Listen.to(Dir.pwd,only: /#{@file}/) do |modified, _,_|
-        if File.basename(modified.first) == @file
+      dir = File.dirname(@file)
+      base = File.basename(@file)
+      puts dir
+      puts base      
+
+      @listener = Listen.to(dir,only: /^#{base}$/) do |modified, _,_|
+        if File.basename(modified.first) == base
           reload
         end
       end
@@ -59,7 +66,7 @@ module Grater
     end
 
     def reload
-      puts 'Reading config...'
+      puts "Reading #{@file}"
       @commands = Grater::DSL::Root.read(@file)
       write_hotkeys(@commands)
     end

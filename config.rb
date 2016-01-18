@@ -14,7 +14,7 @@ class Grater::DSL::Handler
       w.send_key(key)
     else
       w.send_key(original)
-    end  
+    end
   end
 end
 
@@ -28,13 +28,13 @@ end
 # end
 
 
-backspace 'ctrl + h' do
-  chrome_fake 'BackSpace', 'ctrl+h'
-end
+# backspace 'ctrl + h' do
+#   chrome_fake 'BackSpace', 'ctrl+h'
+# end
 
-enter 'ctrl + m' do
-  chrome_fake 'Return', 'ctrl+m'
-end
+# enter 'ctrl + m' do
+#   chrome_fake 'Return', 'ctrl+m'
+# end
 
 
 emacs('ctrl + j ; ctrl + j') {

@@ -10,7 +10,7 @@ if ! [ -p "$PIPE" ]; then
   mkfifo "$PIPE"
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
   # &> "$LOG" &
-  exec -a grater bundle exec ruby "$SERVER" -p "$PIPE" $*
+  BUNDLE_GEMFILE="$SERVER/../../Gemfile" exec -a grater bundle exec ruby "$SERVER" -p "$PIPE" $*
 else
   echo "Sending command '$*'"
   echo "$*" > $PIPE

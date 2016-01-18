@@ -11,9 +11,9 @@ require_relative "../lib/grater"
 options = Slop.parse do |o|
   o.bool "-v", "--verbose", "enable verbose mode", default: false
   o.string "-p", "--pipe", "pipe for commands", default: '/tmp/grater'
-  o.string "-f", "--file", "configuration file", default: 'config.rb'
+  # TODO: "#{ENV['HOME']}/.config/grater/graterrc"
+  o.string "-f", "--file", "configuration file", default: '/home/jakub/code/my/grater/config.rb'
   o.string "-k", "--keys", "hotkeys config file", default: '/home/jakub/.config/sxhkd/sxhkdrc'
-
 end
 
 Process.setproctitle 'grater'
