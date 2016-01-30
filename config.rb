@@ -54,6 +54,12 @@ slack('ctrl + j ; ctrl + s') {
   activate /slack.Slack/,'slack &'
 }
 
+5.times do |i|
+ send("desktop_#{i}","ctrl + j ; #{i}") {
+   wmctrl "-s #{i-1}"
+ }
+end
+
 # Nyx
 nyx('ctrl + j ; ctrl + n') {
   activate(web_app: 'epjahignhcbaegaljboenneempmgadoo')

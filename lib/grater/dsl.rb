@@ -38,6 +38,8 @@ module Grater
     end
 
     class Handler
+      include Grater::Runner
+
       def activate(*args)
         if args.length == 2
           pattern, exec = args
