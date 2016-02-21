@@ -3,14 +3,14 @@
 PIPE='/tmp/grater'
 LOG="$HOME/.grater.log"
 SERVER='/home/jakub/code/my/grater/bin/grater-server'
-
+export BUNDLE_GEMFILE="$SERVER/../../Gemfile"
 
 if ! [ -p "$PIPE" ]; then
   echo "Booting Grater..."
   mkfifo "$PIPE"
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
   # &> "$LOG" &
-  BUNDLE_GEMFILE="$SERVER/../../Gemfile" exec -a grater bundle exec ruby "$SERVER" -p "$PIPE" $*
+  exec -a grater bundle exec ruby "$SERVER" -p "$PIPE" $* || rm "$PIPE"
 else
   echo "Sending command '$*'"
   echo "$*" > $PIPE

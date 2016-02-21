@@ -61,6 +61,6 @@ slack('ctrl + j ; ctrl + s') {
 end
 
 # Nyx
-nyx('ctrl + j ; ctrl + n') {
-  activate(web_app: 'epjahignhcbaegaljboenneempmgadoo')
-}
+# nyx('ctrl + j ; ctrl + n') {
+#   activate(web_app: 'epjahignhcbaegaljboenneempmgadoo')
+# }
