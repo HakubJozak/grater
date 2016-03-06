@@ -21,24 +21,15 @@ vlc('ctrl + j ; v') {
   activate /VLC/,'vlc &'
 }
 
-vlc('ctrl + j ; r') {
-  activate /DrRacket/,'/home/jakub/racket/bin/drracket &'
-}
-
 [7,8,9,0].each do |i|
   send("mark_#{i}","ctrl + j ; m ; #{i}") {
     @marks[i] = Grater::Window.active
   }
 
   send("recall_#{i}","ctrl + j ; #{i}") {
-    puts @marks
-    
-    if w = @marks[i]
-      w.activate
-    end
+    w.activate if w = @marks[i]
   }
 end
-
 
 6.times do |i|
  send("desktop_#{i}","ctrl + j ; #{i}") {
