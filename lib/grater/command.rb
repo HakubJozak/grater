@@ -9,7 +9,7 @@ module Grater
     end
 
     def run
-      Grater::DSL::Handler.new.instance_eval(&@handler)
+      Grater::Dsl::Handler.instance.instance_eval(&@handler)
     end
 
     def to_sxhkd
@@ -29,4 +29,3 @@ EOF
     end
   end
 end
-

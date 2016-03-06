@@ -65,7 +65,7 @@ module Grater
 
     def reload
       puts "Reading #{@file}"
-      @commands = Grater::DSL::Root.read(@file)
+      @commands = Grater::Dsl::Root.read(@file)
       write_hotkeys(@commands)
     end
   end
