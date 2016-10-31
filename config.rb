@@ -1,24 +1,32 @@
 TERMINAL = /gnome-terminal-server.Gnome-terminal/
 
+# tea_disaster_ignore('F11') {}
+
 emacs('ctrl + j ; ctrl + j') {
   activate /emacs.*.Emacs24/, 'emacs &'
 }
 
 
 browse('ctrl + j ; ctrl + i') {
-  activate /google-chrome.google-chrome/,'google-chrome &'
+  activate /Google.Chrome/,'google-chrome &'
 }
 
 terminal('ctrl + j ; ctrl + k') {
   activate TERMINAL,'gnome-terminal &'
 }
 
-slack('ctrl + j ; ctrl + s') {
-  activate /slack.Slack/,'slack &'
-}
+# slack('ctrl + j ; ctrl + s') {
+#   activate /slack.Slack/,'slack &'
+# }
 
 vlc('ctrl + j ; v') {
   activate /VLC/,'vlc &'
+}
+
+# area screenshot to clipboard
+screenshot('ctrl + j ; ctrl + s') {
+  puts 'sdfdsfds'
+  system "gnome-screenshot -a -c &"
 }
 
 [7,8,9,0].each do |i|
@@ -27,7 +35,9 @@ vlc('ctrl + j ; v') {
   }
 
   send("recall_#{i}","ctrl + j ; #{i}") {
-    w.activate if w = @marks[i]
+    if w = @marks[i]
+      w.activate
+    end
   }
 end
 

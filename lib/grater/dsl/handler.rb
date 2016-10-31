@@ -10,7 +10,7 @@ module Grater
       def initialize
         @marks = {}
       end
-      
+
       def activate(*args)
         if args.length == 2
           pattern, exec = args
